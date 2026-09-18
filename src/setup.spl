@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS project_category;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS project;
+DROP TABLE IF EXISTS organization;
+
 CREATE TABLE organization (
 organization_id SERIAL PRIMARY KEY,
 name VARCHAR(150) NOT NULL,
@@ -16,4 +21,100 @@ VALUES
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
 
 
+
+
+-- ========================================
+-- Create Projects table
+-- ========================================
+CREATE TABLE project (
+    project_id SERIAL PRIMARY KEY,
+    organization_id INTEGER NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    FOREIGN KEY (organization_id)
+        REFERENCES organization(organization_id)
+        ON DELETE CASCADE
+);
+
+-- ========================================
+-- Insert sample data: Projects
+-- ========================================
+INSERT INTO project (organization_id, name, description)
+VALUES
+(1, 'Community School Renovation',
+ 'Renovating classrooms and improving learning spaces for children in the community.'),
+
+(1, 'Community Center Construction',
+ 'Building a safe and accessible community center for local residents.'),
+
+(2, 'Urban Garden Project',
+ 'Creating community gardens to promote sustainable food production.'),
+
+(2, 'Sustainable Farming Workshop',
+ 'Teaching community members sustainable farming and food-growing techniques.'),
+
+(3, 'Community Clean-Up',
+ 'Organizing volunteers to clean public spaces and improve the local environment.'),
+
+(3, 'Food Donation Drive',
+ 'Collecting and distributing food donations to families and community organizations.');
+
+ CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);    
+
+ -- ========================================
+-- Insert sample data: Categories
+-- ========================================
+INSERT INTO category (name)
+VALUES
+('Environmental'),
+('Educational'),
+('Community Service'),
+('Health and Wellness');
+
+-- ========================================
+-- Create Project Categories relationship table
+-- ========================================
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES project(project_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+        ON DELETE CASCADE
+);
+
+-- ========================================
+-- Associate Projects with Categories
+-- ========================================
+INSERT INTO project_category (project_id, category_id)
+VALUES
+(1, 2),
+(1, 3),
+
+(2, 3),
+
+(3, 1),
+(3, 4),
+
+(4, 1),
+(4, 2),
+
+(5, 1),
+(5, 3),
+
+(6, 3),
+(6, 4);
+
 SELECT * FROM organization;
+SELECT * FROM project;
+SELECT * FROM category;
+SELECT * FROM project_category;
