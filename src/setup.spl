@@ -16,12 +16,82 @@ logo_filename VARCHAR (255) NOT NULL
 -- ========================================
 INSERT INTO organization (name, description, contact_email, logo_filename)
 VALUES
-('BrightFuture Builders', 'A nonprofit focused on improving community infrastructure through sustainable construction projects.', 'info@brightfuturebuilders.org', 'brightfuture-logo.png'),
-('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
-('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
+('BrightFuture Builders',
+ 'A nonprofit focused on improving community infrastructure through sustainable construction projects.',
+ 'info@brightfuturebuilders.org',
+ 'brightfuture-logo.png'),
 
+('GreenHarvest Growers',
+ 'An urban farming collective promoting food sustainability and education in local neighborhoods.',
+ 'contact@greenharvest.org',
+ 'greenharvest-logo.png'),
 
+('UnityServe Volunteers',
+ 'A volunteer coordination group supporting local charities and service initiatives.',
+ 'hello@unityserve.org',
+ 'unityserve-logo.png'),
 
+('Hope Community Health',
+ 'A community organization providing health education and wellness support.',
+ 'info@hopecommunityhealth.org',
+ 'hopehealth-logo.png'),
+
+('Future Leaders Initiative',
+ 'An organization helping young people develop leadership and career skills.',
+ 'contact@futureleaders.org',
+ 'futureleaders-logo.png'),
+
+('Clean Earth Alliance',
+ 'A community group dedicated to environmental protection and conservation.',
+ 'info@cleanearthalliance.org',
+ 'cleanearth-logo.png'),
+
+('Learning Path Foundation',
+ 'A nonprofit supporting educational opportunities for children and adults.',
+ 'hello@learningpath.org',
+ 'learningpath-logo.png'),
+
+('Community Food Network',
+ 'An organization working to improve food access and support families in need.',
+ 'contact@communityfoodnetwork.org',
+ 'foodnetwork-logo.png'),
+
+('Safe Neighborhoods Project',
+ 'A community initiative focused on creating safer and stronger neighborhoods.',
+ 'info@safeneighborhoods.org',
+ 'safeneighborhoods-logo.png'),
+
+('Green Future Initiative',
+ 'A nonprofit promoting sustainable living and environmentally responsible practices.',
+ 'hello@greenfuture.org',
+ 'greenfuture-logo.png'),
+
+('Youth Empowerment Network',
+ 'An organization providing mentorship and development opportunities for young people.',
+ 'contact@youthempowerment.org',
+ 'youth-logo.png'),
+
+('Community Builders Association',
+ 'A volunteer organization supporting local infrastructure and community improvement projects.',
+ 'info@communitybuilders.org',
+ 'communitybuilders-logo.png'),
+
+('Healthy Families Foundation',
+ 'A nonprofit supporting families through health, wellness, and community programs.',
+ 'hello@healthyfamilies.org',
+ 'healthyfamilies-logo.png'),
+
+('Education for All',
+ 'An organization working to increase access to quality education and learning resources.',
+ 'contact@educationforall.org',
+ 'educationforall-logo.png'),
+
+('Volunteer Action Group',
+ 'A volunteer network connecting community members with service opportunities.',
+ 'info@volunteeraction.org',
+ 'volunteeraction-logo.png');
+
+ORDER BY organization_id ASC 
 
 -- ========================================
 -- Create Projects table
