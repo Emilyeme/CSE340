@@ -129,10 +129,55 @@ VALUES
 (3, 'Food Donation Drive',
  'Collecting and distributing food donations to families and community organizations.');
 
+ALTER TABLE public.project
+RENAME COLUMN name TO title;
+
+ALTER TABLE public.project
+ADD COLUMN date DATE;
+
+ALTER TABLE public.project
+ADD COLUMN location VARCHAR(255);
+
+UPDATE public.project
+SET date = '2026-10-05',
+    location = 'Kampala'
+WHERE project_id = 1;
+
+UPDATE public.project
+SET date = '2026-10-12',
+    location = 'Entebbe'
+WHERE project_id = 2;
+
+UPDATE public.project
+SET date = '2026-10-19',
+    location = 'Jinja'
+WHERE project_id = 3;
+
+UPDATE public.project
+SET date = '2026-10-26',
+    location = 'Mukono'
+WHERE project_id = 4;
+
+UPDATE public.project
+SET date = '2026-11-02',
+    location = 'Wakiso'
+WHERE project_id = 5;
+
+UPDATE public.project
+SET date = '2026-11-09',
+    location = 'Kampala'
+WHERE project_id = 6;
+
+SELECT project_id, title, date, location
+FROM public.project
+ORDER BY project_id;
+
+
  CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE
 );    
+
 
  -- ========================================
 -- Insert sample data: Categories
