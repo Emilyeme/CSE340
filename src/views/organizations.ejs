@@ -7,15 +7,30 @@
 
             <% organizations.forEach(organization => { %>
             <li>
-               <img 
-                  src="/images/<%= organization.logo_filename %>" 
-                  alt="<%= organization.name %> logo"
-                  class="organization-logo">
-                 <strong><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></strong>: <%= organization.contact_email %>
+                <img 
+                    src="/images/<%= organization.logo_filename %>" 
+                    alt="<%= organization.name %> logo"
+                    class="organization-logo">
+
+                <strong>
+                    <a href="/organization/<%= organization.organization_id %>">
+                        <%= organization.name %>
+                    </a>
+                </strong>: <%= organization.contact_email %>
+
+                <p>
+                    <a href="/edit-organization/<%= organization.organization_id %>">
+                        Edit Organization
+                    </a>
+                </p>
             </li>
+            
             <% }); %>
-            <p><a href="/new-organization">Add a new organization</a></p>
-            <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+
+            <p>
+                <a href="/new-organization">Add a new organization</a>
+            </p>
+            
         </ul>
     </main>
 
