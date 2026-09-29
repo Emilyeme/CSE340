@@ -1,0 +1,14 @@
+import { getAllCategories, getCategoryDetails, getProjectsByCategoryId } from '../models/categories.js'; const categoriesPage = async (req, res) => { const categories = await getAllCategories(); const title = 'Service Project Categories'; res.render('categories', { title, categories }); }; const showCategoryDetailsPage = async (req, res) => { const categoryId = req.params.id; const category = await getCategoryDetails(categoryId); const projects = await getProjectsByCategoryId(categoryId); const title = category.name; res.render('category', { title, category, projects }); }; export { categoriesPage, showCategoryDetailsPage };
+Nice work, Emily. This controller demonstrates the separation of responsibilities well: the controller gets the route parameter with req.params.id, passes it to the model functions, and then sends the returned data to the EJS view. The database logic stays in the model rather than in the controller.
+What is the purpose of req.params.id in showCategoryDetailsPage?
+req.params.id is the bridge between the url path 
+Exactly, Emily. req.params.id connects the :id part of your route URL to the controller, so the controller can use that specific category ID when calling the model.
+Topic 4 — Error handling: Please paste the code you use for your 404 or 500 error handling.
+<%- include('../partials/header') %> <main> <h1>Page Not Found</h1> <p>The page you are looking for does not exist.</p> <p>Return to the <a href="/">homepage</a> to continue browsing.</p> </main> <%- include('../partials/footer') %>
+Good, Emily. This is your 404 view, which gives the user a friendly response when the requested page doesn't exist.
+The view itself displays the message, while the middleware/controller determines when this page should be shown.
+What do you think is the purpose of sending a 404 status code instead of just rendering this page with a normal 200 status?
+it communicates the true state of the request to both the browser and any system interacting with my site 
+Exactly, Emily. A 404 accurately tells the browser and other systems that the requested resource was not found, while your custom EJS page gives the person a useful explanation and navigation back to the site.
+You’ve now worked through all four required areas: models, views, controllers, and error handling, and you explained the important concepts in your own words.
+
