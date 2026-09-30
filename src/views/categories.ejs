@@ -2,6 +2,7 @@
 
 <main>
     <h1><%= title %></h1>
+    <p><a href="/new-category">Add New Category</a></p>
 
     <ul>
         <% categories.forEach(category => { %>
@@ -10,6 +11,7 @@
                    <%= category.name %>
                 </a>
             </li>
+            <p><a href="/edit-category/<%= category.category_id %>">Edit Category</a></p>
         <% }) %>
     </ul>
 </main>
