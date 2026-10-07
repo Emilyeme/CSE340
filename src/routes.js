@@ -10,7 +10,7 @@ import { showEditOrganizationForm, processEditOrganizationForm } from './control
 import { showNewProjectForm, processNewProjectForm,processEditProjectForm,showEditProjectForm, projectValidation } from './controllers/projects.js';
 import { showAssignCategoriesForm, processAssignCategoriesForm, showEditCategoryForm, processEditCategoryForm, showNewCategoryForm, processNewCategoryForm, categoryValidation } from './controllers/categories.js';
 import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
-import { processLoginForm, showLoginForm, processLogout,requireLogin, showDashboard, requireRole } from './controllers/users.js';
+import { processLoginForm, showLoginForm, processLogout,requireLogin, showDashboard,showUsersPage, requireRole } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -64,6 +64,9 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 // Protected dashboard route
 router.get('/dashboard', requireLogin, showDashboard);
+
+//admin-only users page route
+router.get('/users', requireRole('admin'), showUsersPage);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);

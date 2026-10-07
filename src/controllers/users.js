@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser,authenticateUser } from '../models/users.js';
+import { createUser,authenticateUser, getAllUsers } from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -82,6 +82,22 @@ const showDashboard = (req, res) => {
     });
 };
 
+
+const showUsersPage = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+
+        res.render('users', {
+            title: 'Users',
+            users
+        });
+    } catch (error) {
+        console.error('Error retrieving users:', error);
+        req.flash('error', 'Unable to retrieve users.');
+        res.redirect('/dashboard');
+    }
+};
+
 /**
  * Middleware factory to require specific role for route access
  * Returns middleware that checks if user has the required role
@@ -110,6 +126,6 @@ const requireRole = (role) => {
 
 export {
     showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout,
-    requireLogin, showDashboard, requireRole
+    requireLogin, showDashboard, showUsersPage, requireRole
 };
 
