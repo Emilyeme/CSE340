@@ -1,0 +1,48 @@
+Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say 'I don't know' or 'I made a mistake.' That's the fastest way we'll learn today.
+I'm your supportive, non-judgmental Learning Coach and Software Mentor for your CSE340 Week 05 assignment, Emily. We'll take this slowly, discuss all four required topics, and use your actual project code rather than just giving you answers.
+Topic 1: Registration and Password Hashing
+Let's begin with how your application creates a new user and protects their password.
+Because we're working in a chat interface, please paste the relevant registration/password-hashing code from your project—ideally the processUserRegistrationForm function from src/controllers/users.js.
+const processLoginForm = async (req, res) => { const { email, password } = req.body; try { const user = await authenticateUser(email, password); if (user) { // Store user info in session req.session.user = user; req.flash('success', 'Login successful!'); if (res.locals.NODE_ENV === 'development') { console.log('User logged in:', user); } res.redirect('/dashboard'); } else { req.flash('error', 'Invalid email or password.'); res.redirect('/login'); } } catch (error) { console.error('Error during login:', error); req.flash('error', 'An error occurred during login. Please try again.'); res.redirect('/login'); } }; 
+That snippet is actually for Topic 2: Login and Sessions, so we'll use it when we get there. For Topic 1, we need to look specifically at how your application creates the user and hashes the password.
+Please paste your processUserRegistrationForm function from src/controllers/users.js.
+const processUserRegistrationForm = async (req, res) => { const { name, email, password } = req.body; try { // Hash the password before storing it const salt = await bcrypt.genSalt(10); const passwordHash = await bcrypt.hash(password, salt); // Create the user in the database const userId = await createUser(name, email, passwordHash); // Redirect to the home page after successful registration req.flash('success', 'Registration successful! Please log in.'); res.redirect('/'); } catch (error) { console.error('Error registering user:', error); req.flash('error', 'An error occurred during registration. Please try again.'); res.redirect('/register'); } };
+Great. This is a good example for Registration and Password Hashing.
+Your code first gets the user's name, email, and password from the registration form. Then you generate a salt and use bcrypt.hash() to create a password hash before calling createUser(). That means the plain password is not what your application sends to the database.
+I also notice your comment makes the security purpose clear:
+// Hash the password before storing it
+const salt = await bcrypt.genSalt(10);
+const passwordHash = await bcrypt.hash(password, salt);
+The passwordHash is then passed to your database function:
+const userId = await createUser(name, email, passwordHash);
+This is important because even if someone were able to view the database, they would not simply see the user's original password.
+Coaching prompt: In your own words, explain why your application hashes the password before storing the user in the database, and what role the salt plays.
+Good. This header demonstrates authentication-based navigation.
+This section:
+<% if (isLoggedIn) { %>
+    <li><a href="/logout">Logout</a></li>
+<% } else { %>
+    <li><a href="/login">Login</a></li>
+<% } %>
+changes what the user sees based on whether they are logged in.
+If isLoggedIn is true, they see Logout. Otherwise, they see Login.
+Your application also has role-based navigation for admin-only links, such as:
+<% if (user && user.role_name === 'admin') { %>
+    <p>
+        <a href="/users">View All Users</a>
+    </p>
+<% } %>
+An important point is that hiding a link is not the actual security mechanism. A user could manually type /users into the browser, which is why your requireRole('admin') middleware is still necessary. The EJS conditional simply gives the user an appropriate interface.
+You've now discussed all four required areas:
+1. Registration & Password Hashing — bcrypt, salt, database storage, default user role. 
+2. Login & Sessions — authentication, req.session.user, and logout. 
+3. Protected Access Middleware — requireLogin and requireRole. 
+4. Protected Links & Navigation — conditional EJS rendering based on authentication and role. 
+Coaching prompt: Looking back at your Week 05 implementation, what is one security or authentication concept you understand better now than you did before starting the assignment?
+authentication and session management 
+That's a good reflection. You now have a clearer understanding that authentication determines who the user is, while session management allows your application to remember that authenticated state as the user moves through the site.
+We've meaningfully discussed all four required topics and shared code for each one. ??
+The next step for your assignment is the transcript requirement: saving the complete coaching conversation—including both your messages and mine—as a .txt or .md file for Canvas.
+I can create that transcript for you from the conversation we've had here.
+ok
+

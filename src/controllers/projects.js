@@ -4,7 +4,10 @@ import {
     getUpcomingProjects,
     getProjectDetails,
     createProject,
-    updateProject
+    updateProject,
+    addVolunteer,
+    removeVolunteer,
+    isUserVolunteer
 } from '../models/projects.js';
 
 import {
@@ -38,6 +41,8 @@ const projectValidation = [
 ];
 
 
+
+
 const showProjectsPage = async (req, res) => {
     const projects = await getUpcomingProjects(5);
     const title = 'Upcoming Service Projects';
@@ -52,10 +57,19 @@ const showProjectDetailsPage = async (req, res) => {
     const categories = await getCategoriesByProjectId(projectId);
     const title = project.title;
 
+    let isVolunteer = false;
+    if (req.session && req.session.user) {
+        isVolunteer = await isUserVolunteer(
+            req.session.user.user_id,
+            projectId
+        );
+    }
+
     res.render('project', {
         title,
         project,
-        categories
+        categories,
+        isVolunteer
     });
 };
 
@@ -142,6 +156,32 @@ const processEditProjectForm = async (req, res) => {
     }
 };
 
+const processVolunteer = async (req, res) => {
+    const userId = req.session.user.user_id;
+    const projectId = req.params.projectId;
+
+    try {
+        await addVolunteer(userId, projectId);
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error volunteering for project:', error);
+        res.redirect(`/project/${projectId}`);
+    }
+};
+
+const processRemoveVolunteer = async (req, res) => {
+    const userId = req.session.user.user_id;
+    const projectId = req.params.projectId;
+
+    try {
+        await removeVolunteer(userId, projectId);
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error removing volunteer:', error);
+        res.redirect(`/project/${projectId}`);
+    }
+};
+
 export {
     showProjectsPage,
     showProjectDetailsPage,
@@ -149,5 +189,7 @@ export {
     processNewProjectForm,
     showEditProjectForm,
     processEditProjectForm,
+    processVolunteer,
+    processRemoveVolunteer,
     projectValidation
 };

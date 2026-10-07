@@ -7,7 +7,8 @@ import {categoriesPage, showCategoryDetailsPage } from './controllers/categories
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
 import { showNewOrganizationForm, processNewOrganizationForm, organizationValidation } from './controllers/organizations.js';
 import { showEditOrganizationForm, processEditOrganizationForm } from './controllers/organizations.js';
-import { showNewProjectForm, processNewProjectForm,processEditProjectForm,showEditProjectForm, projectValidation } from './controllers/projects.js';
+import { showNewProjectForm, processNewProjectForm,processEditProjectForm,showEditProjectForm,processVolunteer,
+processRemoveVolunteer, projectValidation } from './controllers/projects.js';
 import { showAssignCategoriesForm, processAssignCategoriesForm, showEditCategoryForm, processEditCategoryForm, showNewCategoryForm, processNewCategoryForm, categoryValidation } from './controllers/categories.js';
 import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
 import { processLoginForm, showLoginForm, processLogout,requireLogin, showDashboard,showUsersPage, requireRole } from './controllers/users.js';
@@ -22,6 +23,8 @@ router.get('/projects', showProjectsPage);
 router.get('/categories', categoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
 router.get('/project/:id', showProjectDetailsPage);
+router.get('/volunteer/:projectId', requireLogin, processVolunteer);
+router.get('/unvolunteer/:projectId', requireLogin, processRemoveVolunteer);
 
 // Route for organization details page
 router.get('/organization/:id', showOrganizationDetailsPage);
